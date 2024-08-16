@@ -1,0 +1,5 @@
+#!/bin/sh
+# This pre commit script runs the DHIS code formatter and adds any potential file changes into the index
+
+cd ~/workspace/dhis/dhis2-core/dhis-2 && mvn spotless:apply
+git add .

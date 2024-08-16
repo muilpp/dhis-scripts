@@ -1,5 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 # This pre commit script runs the DHIS code formatter and adds any potential file changes into the index
+
+cd ~/workspace/dhis/dhis2-core/dhis-2
+
+# Fetch all unstaged files
+CHANGED_FILES=($(git ls-files . --exclude-standard --others -m))
 
 cd ~/workspace/dhis/dhis2-core/dhis-2 && mvn spotless:apply
 git add .
+
+# Unstage all files that were unstaged before running the formatter
+for str in ${CHANGED_FILES[@]}
+do   
+	git restore --staged $str
+done
